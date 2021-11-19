@@ -16,11 +16,14 @@ public class Instantiation implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Usuario claudio = new Usuario(null, "Claudio Costa", "claudio.c.matos@gmail.com", null);
-		Usuario joyce = new Usuario(null, "Joyce Ribeiro", "joyce.ribeiro@gmail.com", null);
-		Usuario rosangela = new Usuario(null, "Rosangela Ribeiro", "rosangela.ribeiro@gmail.com", null);
-		repository.deleteAll();
-		repository.saveAll(Arrays.asList(joyce, rosangela, claudio));
+		/*
+		 * Usuario claudio = new Usuario(null, "Claudio Costa",
+		 * "claudio.c.matos@gmail.com", null); Usuario joyce = new Usuario(null,
+		 * "Joyce Ribeiro", "joyce.ribeiro@gmail.com", null); Usuario rosangela = new
+		 * Usuario(null, "Rosangela Ribeiro", "rosangela.ribeiro@gmail.com", null);
+		 * repository.deleteAll(); repository.saveAll(Arrays.asList(joyce, rosangela,
+		 * claudio));
+		 */
 	}
 
 }
