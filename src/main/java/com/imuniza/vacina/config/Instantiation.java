@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.imuniza.vacina.dto.AuthorDTO;
+import com.imuniza.vacina.dto.CommentDTO;
 import com.imuniza.vacina.entidade.Post;
 import com.imuniza.vacina.entidade.Usuario;
 import com.imuniza.vacina.repository.PostRepository;
@@ -38,9 +39,21 @@ public class Instantiation implements CommandLineRunner {
 				new AuthorDTO(claudio));
 		Post post2 = new Post(null, sdf.parse("22/03/2018"), "Praia ", "E ai galera, bora pra praia",
 				new AuthorDTO(joyce));
+		
+		CommentDTO c1 = new CommentDTO("Boa Viagem linda",sdf.parse("21/03/2018"), new AuthorDTO(claudio));
+		CommentDTO c3 = new CommentDTO("Boa praia",sdf.parse("21/03/2018"), new AuthorDTO(claudio));
+		CommentDTO c2 = new CommentDTO("Aproveite  a viagem", sdf.parse("22/03/2018"), new AuthorDTO(joyce));
+		
+		post1.getComments().addAll(Arrays.asList(c1,c2));
+		post2.getComments().addAll(Arrays.asList(c3));
+		
 		postRepository.saveAll(Arrays.asList(post1, post2));
+		
 		claudio.getPosts().addAll(Arrays.asList(post1, post2));
+		joyce.getPosts().addAll(Arrays.asList(post1, post2));
+		
 		repository.save(claudio);
+		repository.save(joyce);
 	}
 
 }
