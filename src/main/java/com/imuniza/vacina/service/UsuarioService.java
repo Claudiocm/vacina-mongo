@@ -20,9 +20,9 @@ public class UsuarioService {
 	}
 
 	public Usuario findById(String id) {
-		Usuario usuario = repository.findById(id).get();
+		Usuario usuario = repository.findById(id).orElse(new Usuario());
 		if (usuario.getId() == null) {
-			throw new ObjectNotFoundException("Id não encontrado com esse " + id);
+			throw new ObjectNotFoundException("Usuário não encontrado com esse " + id);
 		}
 		return usuario;
 	}
@@ -48,6 +48,6 @@ public class UsuarioService {
 	}
 	
 	public Usuario fromDTO(UsuarioDTO dto) {
-		return new Usuario(dto.getId(), dto.getNome(), dto.getLogin(), dto.getNome());
+		return new Usuario(dto.getId(), dto.getNome(), dto.getLogin());
 	}
 }

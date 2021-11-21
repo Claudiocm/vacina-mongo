@@ -9,7 +9,7 @@ class VacinaApplicationTests {
     Usuario usuario;
     
 	public void inicia() {
-		usuario = new Usuario(null,"nome", "claudio@saovicente.sp", "senha");
+		usuario = new Usuario(null,"nome", "claudio@saovicente.sp");
 		//Usuario u = new Usuario(null, null, null);
 		usuario.setNome(usuario.getNome());
 		usuario.setLogin(usuario.getLogin());

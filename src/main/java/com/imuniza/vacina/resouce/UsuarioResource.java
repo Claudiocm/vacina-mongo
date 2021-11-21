@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.imuniza.vacina.dto.UsuarioDTO;
+import com.imuniza.vacina.entidade.Post;
 import com.imuniza.vacina.entidade.Usuario;
 import com.imuniza.vacina.service.UsuarioService;
-
 
 @RestController
 @RequestMapping(value = "/usuarios")
@@ -31,7 +31,7 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(listaDTO);
 	}
 
-	@RequestMapping(value="/{id}",method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<UsuarioDTO> findById(@PathVariable("id") String id) {
 		Usuario usu = usuarioService.findById(id);
 		return ResponseEntity.ok().body(new UsuarioDTO(usu));
@@ -44,18 +44,24 @@ public class UsuarioResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usu.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody UsuarioDTO dto, @PathVariable("id") String id) {
 		Usuario usu = usuarioService.fromDTO(dto);
 		usu.setId(id);
 		usu = usuarioService.update(usu);
-	    return ResponseEntity.noContent().build();
+		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		usuarioService.findById(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> findPosts(@PathVariable("id") String id) {
+		Usuario usu = usuarioService.findById(id);
+		return ResponseEntity.ok().body(usu.getPosts());
 	}
 }

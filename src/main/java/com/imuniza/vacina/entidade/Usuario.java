@@ -1,24 +1,31 @@
 package com.imuniza.vacina.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
-public class Usuario implements Serializable{
+@Document(collection="usuario")
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String id;
 	private String nome;
 	private String login;
 	private String senha;
+	@DBRef(lazy=true)//os post serão carregando quando requisitados
+	private List<Post> posts = new ArrayList<>();
 
-	public Usuario(String id, String nome, String login, String senha) {
+	public Usuario() {
+	}
+
+	public Usuario(String id, String nome, String login) {
 		this.id = id;
 		this.nome = nome;
 		this.login = login;
-		this.senha = senha;
 	}
 
 	public String getId() {
@@ -53,6 +60,14 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,7 +97,5 @@ public class Usuario implements Serializable{
 	public String toString() {
 		return "Usuario [id=" + id + "]";
 	}
-	
-	
 
 }
