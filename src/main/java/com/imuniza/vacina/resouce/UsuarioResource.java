@@ -17,6 +17,7 @@ import com.imuniza.vacina.dto.UsuarioDTO;
 import com.imuniza.vacina.entidade.Usuario;
 import com.imuniza.vacina.service.UsuarioService;
 
+
 @RestController
 @RequestMapping(value = "/usuarios")
 public class UsuarioResource {
@@ -44,5 +45,17 @@ public class UsuarioResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody UsuarioDTO dto, @PathVariable("id") String id) {
+		Usuario usu = usuarioService.fromDTO(dto);
+		usu.setId(id);
+		usu = usuarioService.update(usu);
+	    return ResponseEntity.noContent().build();
+	}
 	
+	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+		usuarioService.findById(id);
+		return ResponseEntity.noContent().build();
+	}
 }

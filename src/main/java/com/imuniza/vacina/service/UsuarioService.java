@@ -27,10 +27,26 @@ public class UsuarioService {
 		return usuario;
 	}
 
+	public Usuario update(Usuario usuario) {
+		Usuario usu = repository.findById(usuario.getId()).get();
+		atualizaUsuario(usu, usuario);
+		return repository.save(usu);
+	}
+	
+	private void atualizaUsuario(Usuario usu, Usuario usuario) {
+		usu.setNome(usuario.getNome());
+		usu.setLogin(usuario.getLogin());		
+	}
+
 	public Usuario insert(Usuario usuario) {
 		return repository.insert(usuario);
 	}
 
+	public void delete(String id) {
+		findById(id);
+		repository.deleteById(id);
+	}
+	
 	public Usuario fromDTO(UsuarioDTO dto) {
 		return new Usuario(dto.getId(), dto.getNome(), dto.getLogin(), dto.getNome());
 	}
