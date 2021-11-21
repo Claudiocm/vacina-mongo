@@ -13,8 +13,8 @@ public class PostService {
 	@Autowired
 	private PostRepository repository;
 
-	public List<Post> findAll() {
-		return repository.findAll();
+	public List<Post> findByTitle(String text) {
+		return repository.findByTitleContainingIgnoreCase(text);
 	}
 
 	public Post findById(String id) {
